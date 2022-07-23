@@ -1,0 +1,11 @@
+.error,
+.success {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: $danger;
+}
+
+.success {
+  color: $success;
+}

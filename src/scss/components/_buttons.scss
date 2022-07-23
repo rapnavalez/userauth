@@ -1,0 +1,36 @@
+@mixin btn($color) {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  border: 0;
+  border-radius: $base-border-radius * 50;
+  padding: $base-padding $base-padding * 2;
+  background-color: $color;
+  transition: $base-transition;
+}
+
+@each $key, $val in $colors {
+  @if ($val != $white) {
+    .btn-#{$key} {
+      @include btn($val);
+      color: $white;
+      &:hover {
+        background-color: lighten($val, 10);
+        text-decoration: underline;
+      }
+    }
+
+    .btn-#{$key}-outline {
+      @include btn(transparent);
+      border: $base-border-thickness solid $val;
+      color: $val;
+      &:hover {
+        background-color: $val;
+        color: $white;
+        text-decoration: underline;
+      }
+    }
+  }
+}
