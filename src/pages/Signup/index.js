@@ -41,10 +41,6 @@ export default function Signup() {
       });
   };
 
-  const checkConfirmPassword = () => {
-    confirmPasswordLabel.classList.remove('errorAnimation');
-  };
-
   return (
     <section className='signup'>
       <div className='container'>
@@ -95,7 +91,7 @@ export default function Signup() {
             placeholder='&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;'
             name='confirmPassword'
             id='confirmPassword'
-            onChange={checkConfirmPassword}
+            onChange={getUserInput}
           />
           <button
             className='signup--submit btn-primary'

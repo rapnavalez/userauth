@@ -11,9 +11,12 @@ export default function Login() {
   const formInput = FormInput[0];
   const setUserStatus = UserStatus[1];
 
+  const inputs = document.querySelectorAll('input');
+  const labels = document.querySelectorAll('label');
+
   const loginHandler = async (e) => {
     e.preventDefault();
-
+    labels.forEach((label) => label.classList.remove('errorAnimation'));
     await axios
       .post('/api/login', {
         ...formInput,
@@ -26,6 +29,9 @@ export default function Login() {
       })
       .catch((err) => {
         setErrors(err.response.data);
+        inputs.forEach((input) => input.classList.add('inputError'));
+        labels.forEach((label) => label.classList.add('inputError-label'));
+        labels.forEach((label) => label.classList.add('errorAnimation'));
       });
   };
 

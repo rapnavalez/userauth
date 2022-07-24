@@ -41,6 +41,9 @@ export const DataProvider = (props) => {
   const getUserInput = (e) => {
     const target = e.target.name;
     const value = e.target.value;
+    const confirmPasswordLabel = document.querySelector(
+      '.confirmPassword-label'
+    );
 
     switch (target) {
       case 'name':
@@ -51,6 +54,9 @@ export const DataProvider = (props) => {
         break;
       case 'password':
         setformInput((prev) => ({ ...prev, password: value }));
+        break;
+      case 'confirmPassword':
+        confirmPasswordLabel.classList.remove('errorAnimation');
         break;
       default:
         break;
