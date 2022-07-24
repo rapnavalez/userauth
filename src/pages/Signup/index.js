@@ -9,8 +9,22 @@ export default function Signup() {
   const [formInput, setFormInput] = FormInput;
   const [errors, setErrors] = Errors;
 
+  const confirmPasswordLabel = document.querySelector('.confirmPassword-label');
+  const confirmPassword = document.querySelector('#confirmPassword');
+
   const signUpHandler = async (e) => {
     e.preventDefault();
+
+    if (confirmPassword.value !== formInput.password) {
+      confirmPassword.classList.add('inputError');
+      confirmPasswordLabel.classList.add('inputError-label');
+      confirmPasswordLabel.classList.add('errorAnimation');
+      setErrors([]);
+      return;
+    }
+
+    confirmPassword.classList.remove('inputError');
+    confirmPasswordLabel.classList.remove('inputError-label');
 
     await axios
       .post('/api/signup', {
@@ -27,15 +41,9 @@ export default function Signup() {
       });
   };
 
-  // const confirmPassword = (e) => {
-  //   const target = e.target.name;
-  //   const value = e.target.value;
-
-  //   if (target !== confirmPassword) return;
-  //   if (formInput.password !== value) {
-  //     target.style.border = `1px solid red`;
-  //   }
-  // };
+  const checkConfirmPassword = () => {
+    confirmPasswordLabel.classList.remove('errorAnimation');
+  };
 
   return (
     <section className='signup'>
@@ -43,33 +51,35 @@ export default function Signup() {
         <form className='signup--form bg-light' onSubmit={signUpHandler}>
           <h2 className='signup--title text-dark'>Sign up</h2>
           <div className='signup--errors'>
-            {errors.map((err, index) => (
-              <span className='signup--error error' key={index}>
-                {err}
-              </span>
-            ))}
+            {errors.errors
+              ? errors.errors.map((err, index) => (
+                  <span className='signup--error error' key={index}>
+                    {err}
+                  </span>
+                ))
+              : ''}
           </div>
-          <label className='signup--label name-label'>Name</label>
+          <label className='signup--label name'>Name</label>
           <input
-            className='signup--input'
+            className='signup--input name'
             type='text'
             placeholder='John Doe'
             name='name'
             id='name'
             onChange={getUserInput}
           />
-          <label className='signup--label email-label'>Email</label>
+          <label className='signup--label email'>Email</label>
           <input
-            className='signup--input'
+            className='signup--input email'
             type='email'
             placeholder='email@email.com'
             name='email'
             id='email'
             onChange={getUserInput}
           />
-          <label className='signup--label password-label'>Password</label>
+          <label className='signup--label password'>Password</label>
           <input
-            className='signup--input'
+            className='signup--input password'
             type='password'
             placeholder='&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;'
             name='password'
@@ -85,7 +95,7 @@ export default function Signup() {
             placeholder='&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;'
             name='confirmPassword'
             id='confirmPassword'
-            onChange={getUserInput}
+            onChange={checkConfirmPassword}
           />
           <button
             className='signup--submit btn-primary'

@@ -7,7 +7,7 @@ export const DataProvider = (props) => {
   const [userId, setUserId] = useState();
   const [user, setUser] = useState();
   const [formInput, setformInput] = useState({});
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({ errors: [], errorName: [] });
   const [userStatus, setUserStatus] = useState(false);
 
   const checkCookie = () => {
@@ -51,10 +51,6 @@ export const DataProvider = (props) => {
         break;
       case 'password':
         setformInput((prev) => ({ ...prev, password: value }));
-        break;
-      case 'confirmPassword':
-        // if (value !== formInput.password) return;
-        setformInput((prev) => ({ ...prev, confirmPassword: value }));
         break;
       default:
         break;

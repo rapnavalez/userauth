@@ -529,6 +529,74 @@ a {
   color: #28a745;
 }
 
+.inputError {
+  color: #dc3545;
+  border-bottom-color: #dc3545 !important;
+}
+
+.inputError-label {
+  color: #dc3545 !important;
+}
+
+.errorAnimation {
+  -webkit-animation: passwordError 0.5s forwards;
+          animation: passwordError 0.5s forwards;
+}
+
+@-webkit-keyframes passwordError {
+  0% {
+    -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+  }
+  20% {
+    -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+  }
+  40% {
+    -webkit-transform: translateX(-5px);
+            transform: translateX(-5px);
+  }
+  60% {
+    -webkit-transform: translateX(5px);
+            transform: translateX(5px);
+  }
+  80% {
+    -webkit-transform: translateX(2px);
+            transform: translateX(2px);
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+  }
+}
+
+@keyframes passwordError {
+  0% {
+    -webkit-transform: translateX(-10px);
+            transform: translateX(-10px);
+  }
+  20% {
+    -webkit-transform: translateX(10px);
+            transform: translateX(10px);
+  }
+  40% {
+    -webkit-transform: translateX(-5px);
+            transform: translateX(-5px);
+  }
+  60% {
+    -webkit-transform: translateX(5px);
+            transform: translateX(5px);
+  }
+  80% {
+    -webkit-transform: translateX(2px);
+            transform: translateX(2px);
+  }
+  100% {
+    -webkit-transform: translateX(0px);
+            transform: translateX(0px);
+  }
+}
+
 .header {
   width: 100%;
   height: 100px;

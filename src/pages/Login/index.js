@@ -35,11 +35,13 @@ export default function Login() {
         <form className='login--form bg-light' onSubmit={loginHandler}>
           <h2 className='login--title text-dark'>Login</h2>
           <div className='login--errors'>
-            {errors.map((err, index) => (
-              <span className='login--error error' key={index}>
-                {err}
-              </span>
-            ))}
+            {errors.errors
+              ? errors.errors.map((err, index) => (
+                  <span className='login--error error' key={index}>
+                    {err}
+                  </span>
+                ))
+              : ''}
           </div>
           <label className='login--label'>Email</label>
           <input

@@ -8,6 +8,7 @@ const createToken = (id) => {
 };
 
 let errors = [];
+let errorName = [];
 module.exports.login_handler = async (req, res) => {
   const { email, password } = req.body;
 
@@ -38,22 +39,20 @@ module.exports.signup_handler = async (req, res) => {
   const signUpDetails = req.body;
 
   try {
-    if (signUpDetails.confirmPassword === signUpDetails.password) {
-      const user = await User.create({ ...signUpDetails });
-      res.status(200).send(user.email);
-    } else {
-      errors.push("The password doesn't match!");
-      throw Error();
-    }
+    const user = await User.create({ ...signUpDetails });
+    res.status(200).send(user.email);
   } catch (error) {
     if (error._message === 'user validation failed') {
       Object.values(error.errors).forEach(({ properties }) => {
         errors.push(properties.message);
       });
+      errorName = Object.keys(error.errors);
+      if (!error.code === 11000) return;
+      errors.push('Email already exist!');
     } else if (error.code === 11000) {
       errors.push('Email already exist!');
     }
-    res.status(400).send(errors);
+    res.status(400).send({ errors, errorName });
     errors = [];
   }
 };

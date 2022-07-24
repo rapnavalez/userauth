@@ -9,3 +9,16 @@
 .success {
   color: $success;
 }
+
+.inputError {
+  color: $danger;
+  border-bottom-color: $danger !important;
+}
+
+.inputError-label {
+  color: $danger !important;
+}
+
+.errorAnimation {
+  animation: passwordError 0.5s forwards;
+}
