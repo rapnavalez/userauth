@@ -5,16 +5,18 @@ import axios from 'axios';
 
 export default function Header() {
   const navigate = useNavigate();
-  const { User, UserStatus, Errors } = useContext(DataContext);
+  const { User, UserStatus, Errors, UserId } = useContext(DataContext);
   const user = User[0];
   const setErrors = Errors[1];
   const [userStatus, setUserStatus] = UserStatus;
+  const setUserId = UserId[1];
 
   const logoutHandler = async () => {
     await axios
       .get('/api/logout')
       .then((res) => {
         setUserStatus(false);
+        setUserId('');
         navigate('/', { replace: true });
       })
       .catch((err) => console.log(err));

@@ -769,20 +769,110 @@ a {
 }
 
 .home--wrapper {
-  width: 100%;
+  max-width: 900px;
+  width: 95%;
   height: 80vh;
+  margin: 0 auto;
+  padding: 4.5rem 0.75rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .home--title {
   font-size: 5rem;
-  font-weight: 900;
+  font-weight: 700;
+}
+
+.home--message {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.home--message span {
+  border-bottom: 5px solid #17a2b8;
+}
+
+.verify_email {
+  width: 100%;
+}
+
+.verify_email--wrapper {
+  max-width: 900px;
+  width: 95%;
+  height: 80vh;
+  margin: 0 auto;
+  padding: 4.5rem 0.75rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.verify_email--title {
+  font-size: 5rem;
+  font-weight: 700;
+}
+
+.verify_email--message {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.verify_email--message span {
+  color: #17a2b8;
+}
+
+.not_found {
+  width: 100%;
+}
+
+.not_found--wrapper {
+  max-width: 900px;
+  width: 95%;
+  height: 80vh;
+  margin: 0 auto;
+  padding: 4.5rem 0.75rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.not_found--title {
+  font-size: 5rem;
+  font-weight: 700;
+}
+
+.not_found--message {
+  font-size: 2rem;
+  font-weight: 500;
 }

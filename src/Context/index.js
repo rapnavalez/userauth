@@ -9,6 +9,7 @@ export const DataProvider = (props) => {
   const [formInput, setformInput] = useState({});
   const [errors, setErrors] = useState({ errors: [], errorName: [] });
   const [userStatus, setUserStatus] = useState(false);
+  const [signUpEmail, setSignUpEmail] = useState();
 
   const checkCookie = () => {
     const cookies = document.cookie.split(';');
@@ -71,6 +72,7 @@ export const DataProvider = (props) => {
         Errors: [errors, setErrors],
         UserStatus: [userStatus, setUserStatus],
         UserId: [userId, setUserId],
+        SignUpEmail: [signUpEmail, setSignUpEmail],
         getUserInput,
         checkCookie,
       }}

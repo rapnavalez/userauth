@@ -6,10 +6,13 @@ import './style.css';
 import Home from './pages/Home';
 import { DataContext } from './Context';
 import { useContext } from 'react';
+import VerifyEmail from './pages/VerifyEmail';
+import NotFound from './pages/404';
 
 function App() {
-  const { UserStatus } = useContext(DataContext);
+  const { UserStatus, SignUpEmail } = useContext(DataContext);
   const userStatus = UserStatus[0];
+  const signUpEmail = SignUpEmail[0];
 
   return (
     <div className='App'>
@@ -17,8 +20,18 @@ function App() {
         <Header />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/login' element={userStatus ? <Home /> : <Login />} />
-          <Route path='/signup' element={userStatus ? <Home /> : <Signup />} />
+          <Route
+            path='/login'
+            element={userStatus ? <NotFound /> : <Login />}
+          />
+          <Route
+            path='/signup'
+            element={userStatus ? <NotFound /> : <Signup />}
+          />
+          <Route
+            path='/verifyemail'
+            element={!signUpEmail ? <NotFound /> : <VerifyEmail />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

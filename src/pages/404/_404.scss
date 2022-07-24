@@ -1,4 +1,4 @@
-.home {
+.not_found {
   width: 100%;
 
   &--wrapper {
@@ -21,9 +21,5 @@
   &--message {
     font-size: 2rem;
     font-weight: 500;
-
-    span {
-      border-bottom: $base-border-thickness * 5 solid $info;
-    }
   }
 }

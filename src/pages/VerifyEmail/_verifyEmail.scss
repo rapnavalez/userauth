@@ -1,4 +1,4 @@
-.home {
+.verify_email {
   width: 100%;
 
   &--wrapper {
@@ -23,7 +23,7 @@
     font-weight: 500;
 
     span {
-      border-bottom: $base-border-thickness * 5 solid $info;
+      color: $info;
     }
   }
 }
