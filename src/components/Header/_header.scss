@@ -2,6 +2,14 @@
   width: 100%;
   height: 100px;
 
+  &--logo {
+    a {
+      font-size: 3rem;
+      font-weight: 700;
+      text-transform: lowercase;
+    }
+  }
+
   &--wrapper {
     width: 100%;
     height: 100%;

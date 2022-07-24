@@ -22,6 +22,17 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Your password is required!'],
     minlength: [8, 'Your password must be at least 8 characters!'],
   },
+  isVerified: { type: Boolean, default: false },
+});
+
+const tokenSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+    ref: 'User',
+  },
+  token: { type: String, required: true },
+  expireAt: { type: Date, default: Date.now, index: { expires: 864000 } },
 });
 
 userSchema.pre('save', function (next) {
@@ -29,5 +40,7 @@ userSchema.pre('save', function (next) {
   next();
 });
 
-const user = mongoose.model('user', userSchema);
-module.exports = user;
+const Token = mongoose.model('token', tokenSchema);
+const User = mongoose.model('user', userSchema);
+
+module.exports = { User, Token };

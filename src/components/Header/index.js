@@ -31,8 +31,8 @@ export default function Header() {
       <div className='container'>
         <div className='header--wrapper'>
           <h1 className='header--logo'>
-            <Link className='text-dark' to='/'>
-              Auth
+            <Link className='text-link-primary' to='/'>
+              Loaners
             </Link>
           </h1>
           {userStatus ? (

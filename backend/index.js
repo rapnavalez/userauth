@@ -12,7 +12,7 @@ app.use(express.json());
 
 //db connection
 mongoose
-  .connect(DB_CONNECT, console.log('Connected to DB!'))
+  .connect(DB_CONNECT, { dBname: `loaners` }, console.log('Connected to DB!'))
   .then((response) => {
     app.listen(PORT, console.log(`Listening to port ${PORT}...`));
   })
