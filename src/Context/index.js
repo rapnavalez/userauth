@@ -5,7 +5,7 @@ export const DataContext = createContext();
 
 export const DataProvider = (props) => {
   const [user, setUser] = useState({});
-  const [data, setData] = useState({});
+  const [formInput, setformInput] = useState({});
   const [errors, setErrors] = useState([]);
   const [userStatus, setUserStatus] = useState(false);
 
@@ -39,16 +39,16 @@ export const DataProvider = (props) => {
 
     switch (target) {
       case 'name':
-        setData((prev) => ({ ...prev, name: value }));
+        setformInput((prev) => ({ ...prev, name: value }));
         break;
       case 'email':
-        setData((prev) => ({ ...prev, email: value }));
+        setformInput((prev) => ({ ...prev, email: value }));
         break;
       case 'password':
-        setData((prev) => ({ ...prev, password: value }));
+        setformInput((prev) => ({ ...prev, password: value }));
         break;
       case 'confirmPassword':
-        setData((prev) => ({ ...prev, confirmPassword: value }));
+        setformInput((prev) => ({ ...prev, confirmPassword: value }));
         break;
       default:
         break;
@@ -59,7 +59,7 @@ export const DataProvider = (props) => {
     <DataContext.Provider
       value={{
         User: [user, setUser],
-        Data: [data, setData],
+        FormInput: [formInput, setformInput],
         Errors: [errors, setErrors],
         UserStatus: [userStatus, setUserStatus],
         getUserInput,

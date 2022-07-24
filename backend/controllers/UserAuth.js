@@ -6,8 +6,9 @@ const expiration = 1 * 24 * 60 * 60;
 const createToken = (id) => {
   return jwt.sign({ id }, 'secret of the world', { expiresIn: expiration });
 };
+
 let errors = [];
-module.exports.login = async (req, res) => {
+module.exports.login_handler = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -33,7 +34,7 @@ module.exports.login = async (req, res) => {
   }
 };
 
-module.exports.signup = async (req, res) => {
+module.exports.signup_handler = async (req, res) => {
   const signUpDetails = req.body;
 
   try {
@@ -56,7 +57,7 @@ module.exports.signup = async (req, res) => {
   }
 };
 
-module.exports.logout = (req, res) => {
+module.exports.logout_handler = (req, res) => {
   res.cookie('loginToken', '', {
     maxAge: 1,
   });

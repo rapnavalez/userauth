@@ -5,16 +5,16 @@ import { DataContext } from '../../Context';
 
 export default function Signup() {
   const navigate = useNavigate();
-  const { Data, Errors, getUserInput } = useContext(DataContext);
-  const data = Data[0];
+  const { FormInput, Errors, getUserInput } = useContext(DataContext);
+  const formInput = FormInput[0];
   const [errors, setErrors] = Errors;
 
-  const signUp = async (e) => {
+  const signUpHandler = async (e) => {
     e.preventDefault();
 
     await axios
       .post('/api/signup', {
-        ...data,
+        ...formInput,
       })
       .then((res) => {
         setErrors([]);
@@ -29,7 +29,7 @@ export default function Signup() {
   return (
     <section className='signup'>
       <div className='container'>
-        <form className='signup--form bg-light' onSubmit={signUp}>
+        <form className='signup--form bg-light' onSubmit={signUpHandler}>
           <h2 className='signup--title text-dark'>Sign up</h2>
           <div className='signup--errors'>
             {errors.map((err, index) => (

@@ -5,10 +5,10 @@ import axios from 'axios';
 
 export default function Login() {
   const navigate = useNavigate();
-  const { User, UserStatus, Errors, Data, getUserInput } =
+  const { User, UserStatus, Errors, FormInput, getUserInput } =
     useContext(DataContext);
   const [errors, setErrors] = Errors;
-  const data = Data[0];
+  const formInput = FormInput[0];
   const setUserStatus = UserStatus[1];
   // const [user, setUser] = User;
   const setUser = User[1];
@@ -18,7 +18,7 @@ export default function Login() {
 
     await axios
       .post('/api/login', {
-        ...data,
+        ...formInput,
       })
       .then((res) => {
         setErrors([]);
