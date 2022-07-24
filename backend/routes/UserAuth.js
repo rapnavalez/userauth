@@ -11,6 +11,6 @@ const {
 router.post(`${BASE}/login`, login_handler);
 router.post(`${BASE}/signup`, signup_handler);
 router.get(`${BASE}/logout`, logout_handler);
-router.get(`${BASE}/user`, get_user);
+router.post(`${BASE}/user`, get_user);
 
 module.exports = router;

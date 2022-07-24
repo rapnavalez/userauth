@@ -20,7 +20,7 @@ module.exports.login_handler = async (req, res) => {
         httpOnly: true,
         maxAge: expiration * 1000,
       });
-      res.cookie('loginCookie', '', {
+      res.cookie('loginCookie', user._id, {
         maxAge: expiration * 1000,
       });
       res.status(200).send(user);
@@ -54,6 +54,7 @@ module.exports.signup_handler = async (req, res) => {
       errors.push('Email already exist!');
     }
     res.status(400).send(errors);
+    errors = [];
   }
 };
 
@@ -68,12 +69,11 @@ module.exports.logout_handler = (req, res) => {
 };
 
 module.exports.get_user = async (req, res) => {
-  const { token } = req.body;
+  const id = req.body;
+
   try {
-    // const user = await User.findById(req.body);
-    res
-      .status(200)
-      .send(JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString()));
+    const { name, email } = await User.findById(id.id);
+    res.status(200).send({ name, email });
   } catch (error) {
     console.log(error);
   }

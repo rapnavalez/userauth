@@ -205,7 +205,6 @@ a {
 }
 
 .btn-primary:hover {
-  background-color: #3395ff;
   text-decoration: underline;
 }
 
@@ -247,7 +246,6 @@ a {
 }
 
 .btn-secondary:hover {
-  background-color: #868e96;
   text-decoration: underline;
 }
 
@@ -289,7 +287,6 @@ a {
 }
 
 .btn-success:hover {
-  background-color: #34ce57;
   text-decoration: underline;
 }
 
@@ -331,7 +328,6 @@ a {
 }
 
 .btn-danger:hover {
-  background-color: #e4606d;
   text-decoration: underline;
 }
 
@@ -373,7 +369,6 @@ a {
 }
 
 .btn-warning:hover {
-  background-color: #ffce3a;
   text-decoration: underline;
 }
 
@@ -415,7 +410,6 @@ a {
 }
 
 .btn-info:hover {
-  background-color: #1fc8e3;
   text-decoration: underline;
 }
 
@@ -457,7 +451,6 @@ a {
 }
 
 .btn-light:hover {
-  background-color: white;
   text-decoration: underline;
 }
 
@@ -499,7 +492,6 @@ a {
 }
 
 .btn-dark:hover {
-  background-color: #4b545c;
   text-decoration: underline;
 }
 
@@ -569,6 +561,17 @@ a {
   gap: 30px;
 }
 
+.header--greetings {
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.header--greetings a {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
 .login {
   width: 100%;
 }
@@ -579,11 +582,12 @@ a {
 }
 
 .login--form {
+  width: 40%;
   position: absolute;
   left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, 40%);
-          transform: translate(-50%, 40%);
+  top: 0;
+  -webkit-transform: translate(-50%, 10%);
+          transform: translate(-50%, 10%);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -609,6 +613,7 @@ a {
 }
 
 .login--input {
+  width: 100%;
   padding: 0.75rem 1.5rem;
   padding-left: 0.75rem;
   border: none;
@@ -638,9 +643,10 @@ a {
 }
 
 .signup--form {
+  width: 40%;
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 0%;
   -webkit-transform: translate(-50%, 10%);
           transform: translate(-50%, 10%);
   display: -webkit-box;
@@ -668,6 +674,7 @@ a {
 }
 
 .signup--input {
+  width: 100%;
   padding: 0.75rem 1.5rem;
   padding-left: 0.75rem;
   border: none;

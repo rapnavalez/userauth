@@ -5,13 +5,11 @@ import axios from 'axios';
 
 export default function Login() {
   const navigate = useNavigate();
-  const { User, UserStatus, Errors, FormInput, getUserInput } =
+  const { UserStatus, Errors, FormInput, getUserInput, checkCookie } =
     useContext(DataContext);
   const [errors, setErrors] = Errors;
   const formInput = FormInput[0];
   const setUserStatus = UserStatus[1];
-  // const [user, setUser] = User;
-  const setUser = User[1];
 
   const loginHandler = async (e) => {
     e.preventDefault();
@@ -22,8 +20,8 @@ export default function Login() {
       })
       .then((res) => {
         setErrors([]);
-        setUser(res.data);
         setUserStatus(true);
+        checkCookie();
         navigate('/', { replace: true });
       })
       .catch((err) => {
@@ -55,7 +53,7 @@ export default function Login() {
           <input
             className='login--input'
             type='password'
-            placeholder='**********'
+            placeholder='&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;'
             name='password'
             onChange={getUserInput}
           />

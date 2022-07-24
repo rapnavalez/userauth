@@ -6,7 +6,7 @@ import { DataContext } from '../../Context';
 export default function Signup() {
   const navigate = useNavigate();
   const { FormInput, Errors, getUserInput } = useContext(DataContext);
-  const formInput = FormInput[0];
+  const [formInput, setFormInput] = FormInput;
   const [errors, setErrors] = Errors;
 
   const signUpHandler = async (e) => {
@@ -18,6 +18,7 @@ export default function Signup() {
       })
       .then((res) => {
         setErrors([]);
+        setFormInput({});
         alert(`${res.data} has been registered!`);
         navigate('/login', { replace: true });
       })
@@ -25,6 +26,16 @@ export default function Signup() {
         setErrors(err.response.data);
       });
   };
+
+  // const confirmPassword = (e) => {
+  //   const target = e.target.name;
+  //   const value = e.target.value;
+
+  //   if (target !== confirmPassword) return;
+  //   if (formInput.password !== value) {
+  //     target.style.border = `1px solid red`;
+  //   }
+  // };
 
   return (
     <section className='signup'>
@@ -38,36 +49,42 @@ export default function Signup() {
               </span>
             ))}
           </div>
-          <label className='signup--label'>Name</label>
+          <label className='signup--label name-label'>Name</label>
           <input
             className='signup--input'
             type='text'
             placeholder='John Doe'
             name='name'
+            id='name'
             onChange={getUserInput}
           />
-          <label className='signup--label'>Email</label>
+          <label className='signup--label email-label'>Email</label>
           <input
             className='signup--input'
             type='email'
             placeholder='email@email.com'
             name='email'
+            id='email'
             onChange={getUserInput}
           />
-          <label className='signup--label'>Password</label>
+          <label className='signup--label password-label'>Password</label>
           <input
             className='signup--input'
             type='password'
             placeholder='&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;'
             name='password'
+            id='password'
             onChange={getUserInput}
           />
-          <label className='signup--label'>Confirm Password</label>
+          <label className='signup--label confirmPassword-label'>
+            Confirm Password
+          </label>
           <input
             className='signup--input'
             type='password'
             placeholder='&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;'
             name='confirmPassword'
+            id='confirmPassword'
             onChange={getUserInput}
           />
           <button

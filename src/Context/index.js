@@ -4,34 +4,39 @@ import axios from 'axios';
 export const DataContext = createContext();
 
 export const DataProvider = (props) => {
-  const [user, setUser] = useState({});
+  const [userId, setUserId] = useState();
+  const [user, setUser] = useState();
   const [formInput, setformInput] = useState({});
   const [errors, setErrors] = useState([]);
   const [userStatus, setUserStatus] = useState(false);
 
   const checkCookie = () => {
-    const user = document.cookie.split(';');
-    if (user.includes(' loginCookie=')) {
-      setUserStatus(true);
+    const cookies = document.cookie.split(';');
+    cookies.forEach((cookie) => {
+      if (!cookie.includes('loginCookie')) return;
+      setUserId(
+        cookie
+          .substring(cookie.indexOf('=') + 1)
+          .substring(7)
+          .slice(0, -3)
+      );
+    });
+    if (userId) {
+      axios
+        .post('api/user', {
+          id: userId,
+        })
+        .then((res) => {
+          setUser(res.data);
+          setUserStatus(true);
+        })
+        .catch((err) => console.log(err));
     } else {
       setUserStatus(false);
     }
   };
 
-  useEffect(checkCookie, []);
-
-  const getUser = () => {
-    const id = user._id;
-    if (!id) return;
-    axios
-      .get(`/api/user/`, {
-        token: 'token',
-      })
-      .then((res) => {
-        setUser(res);
-      })
-      .catch((err) => console.log(err));
-  };
+  useEffect(checkCookie, [userId]);
 
   const getUserInput = (e) => {
     const target = e.target.name;
@@ -48,6 +53,7 @@ export const DataProvider = (props) => {
         setformInput((prev) => ({ ...prev, password: value }));
         break;
       case 'confirmPassword':
+        // if (value !== formInput.password) return;
         setformInput((prev) => ({ ...prev, confirmPassword: value }));
         break;
       default:
@@ -62,8 +68,9 @@ export const DataProvider = (props) => {
         FormInput: [formInput, setformInput],
         Errors: [errors, setErrors],
         UserStatus: [userStatus, setUserStatus],
+        UserId: [userId, setUserId],
         getUserInput,
-        getUser,
+        checkCookie,
       }}
     >
       {props.children}

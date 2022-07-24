@@ -17,7 +17,7 @@
       @include btn($val);
       color: $white;
       &:hover {
-        background-color: lighten($val, 10);
+        // background-color: lighten($val, 10);
         text-decoration: underline;
       }
     }

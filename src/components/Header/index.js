@@ -5,8 +5,9 @@ import axios from 'axios';
 
 export default function Header() {
   const navigate = useNavigate();
-  const { User, UserStatus } = useContext(DataContext);
+  const { User, UserStatus, Errors } = useContext(DataContext);
   const user = User[0];
+  const setErrors = Errors[1];
   const [userStatus, setUserStatus] = UserStatus;
 
   const logoutHandler = async () => {
@@ -17,6 +18,10 @@ export default function Header() {
         navigate('/', { replace: true });
       })
       .catch((err) => console.log(err));
+  };
+
+  const clearErrors = () => {
+    setErrors([]);
   };
 
   return (
@@ -30,11 +35,14 @@ export default function Header() {
           </h1>
           {userStatus ? (
             <div className='header--links'>
-              <Link className='header--link text-link-dark' to='/'>
-                {user.name}
-              </Link>
+              <h4 className='header--greetings text-dark'>
+                Hello,&nbsp;
+                <Link className='text-link-primary' to='/'>
+                  {user.name.slice(0, user.name.indexOf(' '))}
+                </Link>
+              </h4>
               <button
-                className='header--link btn-danger'
+                className='header--btn btn-danger'
                 onClick={logoutHandler}
               >
                 Logout
@@ -42,10 +50,18 @@ export default function Header() {
             </div>
           ) : (
             <div className='header--links'>
-              <Link className='header--link text-link-dark' to='/login'>
+              <Link
+                onClick={clearErrors}
+                className='header--link text-link-dark'
+                to='/login'
+              >
                 Login
               </Link>
-              <Link className='header--link btn-primary' to='/signup'>
+              <Link
+                onClick={clearErrors}
+                className='header--link btn-primary'
+                to='/signup'
+              >
                 Sign Up
               </Link>
             </div>
