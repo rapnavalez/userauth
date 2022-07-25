@@ -20,7 +20,7 @@ module.exports.login_handler = async (req, res) => {
       if (verify) {
         const token = createToken(user._id);
         if (user.isVerified) {
-          res.cookie('loginToken', token, {
+          await res.cookie('loginToken', token, {
             httpOnly: true,
             maxAge: expiration * 1000,
           });
@@ -154,13 +154,10 @@ module.exports.logout_handler = (req, res) => {
 };
 
 module.exports.get_user = async (req, res) => {
-  const token = req.cookies.loginToken;
-  if (!token) return res.sendStatus(403);
-  try {
-    const data = jwt.verify(token, process.env.JWT_SECRET);
-    const { name, email } = await User.findById(data.id);
-    res.status(200).send({ name, email });
-  } catch (error) {
-    console.log(error);
-  }
+  const token = await req.cookies.loginToken;
+  if (!token) return;
+
+  const data = jwt.verify(token, process.env.JWT_SECRET);
+  const { name, email } = await User.findById(data.id);
+  res.status(200).send({ name, email });
 };

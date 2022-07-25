@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# User Auth Process
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple user authentication where the user can sign up, login, logout. The user has to confirm his/her email to complete the sign up process. This user auth also includes jwt to secure the process.
 
-## Available Scripts
+## Run Locally
 
-In the project directory, you can run:
+Clone the project
 
-### `npm start`
+```bash
+  git clone https://github.com/rapnavalez/userauth
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Go to the project directory
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+frontend
+  cd userauth
+backend
+  cd backend
+```
 
-### `npm test`
+Install dependencies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+  npm install
+```
 
-### `npm run build`
+Start the server
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+  npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Ports
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+3000 for frontend
+5000 for backend
+```
 
-### `npm run eject`
+## Documentation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Sign Up
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The user has go to `http://localhost:3000/signup` to fill out an signup form. The password has to match to be able to submit the form. The server will do the validation for the name, email, and password.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+After signing up, a user will be created user `userSchema` with `{ isVerified: false }`. An email containing the confirmation token will be sent to the email address that was used to register. The confirmation token is valid for 864000 seconds (10 days). After visiting the link, the server would validate the token, and if it is valid, the `isVerified` would be set to `true` and the token would be deleted from the `tokenSchema`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### Confirmation email
 
-## Learn More
+If the user lost the confirmation email or the token has expired before they used it. The user can request a new confirmation email at `http://localhost:3000/confirmationemail` the link to this would be present if the user clicked on an expired confirmation link or if the user tried to login without confirming the email.
+Client side validation is present in checking if the user is submiting a valid email, and server side validation would be preset if the email is already active or is present in the db.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Login
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The user can login `http://localhost:3000/login`. The validation is done on server side checking if the email exist and the password is correct. If the user entered an incorrect credentials the server would respond with a vague error message `email or password is incorrect`. If the user entered an email that is yet to be verified, the user would be prompted to verify the email. Upon successful login, a cookie(http) would be created containing the jwt token. A `fetchUser` function would be triggered to fetch the user relative to the jwt token that was saved in cookie.
 
-### Code Splitting
+### Logout
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The user can click the `logout` button. It will delete the cookie and set the `userStatus` to `false`

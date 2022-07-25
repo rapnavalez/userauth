@@ -18,8 +18,7 @@ export const DataProvider = (props) => {
         setUserStatus(true);
       })
       .catch((err) => {
-        console.log(err);
-        setUserStatus(true);
+        setUserStatus(false);
       });
   };
 

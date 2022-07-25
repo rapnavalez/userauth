@@ -6,7 +6,7 @@ import axios from 'axios';
 export default function Header() {
   const navigate = useNavigate();
   const { User, UserStatus, Errors, FormInput } = useContext(DataContext);
-  const user = User[0];
+  const [user, setUser] = User;
   const setErrors = Errors[1];
   const [userStatus, setUserStatus] = UserStatus;
   const setFormInput = FormInput[1];
@@ -15,6 +15,7 @@ export default function Header() {
     await axios
       .get('/api/logout')
       .then((res) => {
+        setUser(null);
         setUserStatus(false);
         navigate('/', { replace: true });
       })
@@ -40,7 +41,9 @@ export default function Header() {
               <h4 className='header--greetings text-dark'>
                 Hello,&nbsp;
                 <Link className='text-link-primary' to='/'>
-                  {user.name.slice(0, user.name.indexOf(' '))}
+                  {user !== null
+                    ? user.name.slice(0, user.name.indexOf(' '))
+                    : ''}
                 </Link>
               </h4>
               <button
