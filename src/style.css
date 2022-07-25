@@ -170,6 +170,8 @@
 
 html {
   font-size: 14px;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 @media (max-width: 767.98px) {
@@ -532,7 +534,7 @@ a {
 .error,
 .success {
   display: block;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   font-weight: 500;
   color: #dc3545;
 }
@@ -718,6 +720,41 @@ a {
   margin-top: 20px;
   font-size: 1.3rem;
   padding: 0.75rem 1.5rem;
+}
+
+.already_loggedin {
+  width: 100%;
+}
+
+.already_loggedin--wrapper {
+  max-width: 900px;
+  width: 95%;
+  height: 80vh;
+  margin: 0 auto;
+  padding: 4.5rem 0.75rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.already_loggedin--title {
+  font-size: 5rem;
+  font-weight: 700;
+}
+
+.already_loggedin--message {
+  font-size: 2rem;
+  font-weight: 500;
 }
 
 .signup {
@@ -924,4 +961,66 @@ a {
 .expired--message, .expired--link {
   font-size: 2rem;
   font-weight: 500;
+}
+
+.confirmation_email {
+  width: 100%;
+}
+
+.confirmation_email--title {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.confirmation_email--form {
+  max-width: 900px;
+  width: 95%;
+  position: absolute;
+  left: 50%;
+  top: 0%;
+  -webkit-transform: translate(-50%, 10%);
+          transform: translate(-50%, 10%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 10px;
+  padding: 0.75rem;
+  border-radius: 5px;
+}
+
+.confirmation_email--label {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.confirmation_email--input {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  padding-left: 0.75rem;
+  border: none;
+  border-bottom: 1px solid #6c757d;
+  background-color: transparent;
+  font-size: 1.3rem;
+}
+
+.confirmation_email--input:focus {
+  outline: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.confirmation_email--submit {
+  margin-top: 20px;
+  font-size: 1.3rem;
+  padding: 0.75rem 1.5rem;
 }

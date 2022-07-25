@@ -10,26 +10,30 @@ const createToken = (id) => {
 };
 
 let errors = [];
-let errorName = [];
 module.exports.login_handler = async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const user = await User.findOne({ email });
-    const verify = bcrypt.compareSync(password, user.password);
-    const token = createToken(user._id);
-    if (user && verify) {
-      if (user.isVerified) {
-        res.cookie('loginToken', token, {
-          httpOnly: true,
-          maxAge: expiration * 1000,
-        });
-        res.cookie('loginCookie', user._id, {
-          maxAge: expiration * 1000,
-        });
-        res.status(200).send(user);
+    if (user) {
+      const verify = bcrypt.compareSync(password, user.password);
+      if (verify) {
+        const token = createToken(user._id);
+        if (user.isVerified) {
+          res.cookie('loginToken', token, {
+            httpOnly: true,
+            maxAge: expiration * 1000,
+          });
+          res.cookie('loginCookie', user._id, {
+            maxAge: expiration * 1000,
+          });
+          res.status(200).send(user);
+        } else {
+          errors.push('Your email is not verified! Please check your inbox.');
+          throw Error();
+        }
       } else {
-        errors.push('Your email is not verified! Please check your inbox.');
+        errors.push('Email or Password is incorrect!');
         throw Error();
       }
     } else {
@@ -42,50 +46,54 @@ module.exports.login_handler = async (req, res) => {
   }
 };
 
-module.exports.signup_handler = async (req, res) => {
-  const signUpDetails = req.body;
+const generateAndEmailToken = async (user) => {
+  const randonNum = Math.floor(Math.random() * 100000);
 
-  try {
-    const user = await User.create({ ...signUpDetails });
-    const verifyToken = await Token.create({
-      email: user.email,
-      token: createToken(user._id),
-    });
+  const verifyToken = await Token.create({
+    email: user.email,
+    token: randonNum + createToken(user._id),
+  });
 
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.elasticemail.com',
-      port: 2525,
-      auth: {
-        user: process.env.SENDER_EMAIL,
-        pass: process.env.SENDER_EMAIL_PASS,
-      },
-    });
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.elasticemail.com',
+    port: 2525,
+    auth: {
+      user: process.env.SENDER_EMAIL,
+      pass: process.env.SENDER_EMAIL_PASS,
+    },
+  });
 
-    const mailOptions = {
-      from: 'rapwebdev@gmail.com',
-      to: user.email,
-      subject: 'Please confirm your email',
-      html: `
-      <div style="display: block; margin: 20px 0; background-color:#f8f9fa; padding: 20px;">
+  const mailOptions = {
+    from: 'rapwebdev@gmail.com',
+    to: user.email,
+    subject: 'Please confirm your email',
+    html: `
+      <div style="display: block; margin: 20px 0; padding: 20px;">
         <h1 style="color:#6c757d; font-size: 48px;font-weight: 700; font-family: 'Arial';">Hello, <span style="color: #007bff; text-transform: capitalize">${user.name}</span>!</h1>
         <p style="margin: 20px 0 25px; font-size: 24px;color:#6c757d;font-weight: 500; font-family: 'Arial';">
           Thank for registering at loaners! Please click the link below to
           complete your registration.
         </p>
         <br />
-        <a style="margin-bottom: 20px;background: #007bff;border: 1px solid #007bff; padding: 20px; border-radius: 250px; font-size: 21px;color:#FFF;font-weight: 700; text-decoration: none; font-family: 'Arial';" href='${process.env.CLIENT_ADDRESS}/api/verifyemail/${verifyToken.token}'>Verify Email</a>
+        <a style="margin-bottom: 20px;background: #007bff;border: 1px solid #007bff; padding: 20px; border-radius: 250px; font-size: 21px;color:#FFF;font-weight: 700; text-decoration: none; font-family: 'Arial';" href='${process.env.SERVER_BASE_ADDRESS}/api/verifyemail/${verifyToken.token}'>Verify Email</a>
       </div>
     `,
-    };
+  };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+};
 
+module.exports.signup_handler = async (req, res) => {
+  const signUpDetails = req.body;
+  try {
+    const user = await User.create({ ...signUpDetails });
+    generateAndEmailToken(user);
     res.status(200).send(user.email);
   } catch (error) {
     if (error.code === 11000) {
@@ -94,10 +102,27 @@ module.exports.signup_handler = async (req, res) => {
       Object.values(error.errors).forEach(({ properties }) => {
         errors.push(properties.message);
       });
-      errorName = Object.keys(error.errors);
       if (error.code === 11000) errors.push('Email already exist!');
     }
-    res.status(400).send({ errors, errorName });
+    res.status(400).send(errors);
+    errors = [];
+  }
+};
+
+module.exports.request_new_confirmation_email = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      generateAndEmailToken(user);
+      res.status(200).send(user.email);
+    } else {
+      errors.push('Email is not yet registered!');
+      throw Error();
+    }
+  } catch (error) {
+    res.status(400).send(errors);
     errors = [];
   }
 };
@@ -128,16 +153,16 @@ module.exports.verify_email = async (req, res) => {
   const doesExist = await Token.findOne({ token });
   try {
     if (!doesExist) throw Error();
-    console.log(doesExist.expireAt);
-    console.log(Date.now);
     if (doesExist.expireAt <= Date.now) throw Error();
     await User.findOneAndUpdate(doesExist.email, {
       isVerified: true,
     });
     await Token.findOneAndRemove({ token });
-    res.status(200).redirect('http://localhost:3000/login');
+    res.status(200).redirect(`${process.env.CLIENT_BASE_ADDRESS}/login`);
   } catch (error) {
-    res.status(400).redirect(`http://localhost:3000/tokenexpired/${token}`);
+    res
+      .status(400)
+      .redirect(`${process.env.CLIENT_BASE_ADDRESS}/tokenexpired/${token}`);
   }
 };
 

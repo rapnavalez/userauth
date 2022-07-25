@@ -1,5 +1,3 @@
-// import { useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 export default function Expired() {
@@ -11,8 +9,11 @@ export default function Expired() {
           <p className='expired--message text-secondary'>
             Your confirmation link was either expired or doesn't exist.
           </p>
-          <Link className='expired--link text-link-info' to='/'>
-            Request a new confirmation link
+          <Link
+            className='expired--link text-link-info'
+            to='/confirmationemail'
+          >
+            Request a new confirmation email
           </Link>
         </div>
       </div>

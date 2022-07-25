@@ -1,4 +1,4 @@
-.login {
+.confirmation_email {
   width: 100%;
 
   &--title {
@@ -7,18 +7,18 @@
   }
 
   &--form {
+    max-width: 900px;
     width: 95%;
-    max-width: 500px;
     position: absolute;
     left: 50%;
-    top: 0;
+    top: 0%;
     transform: translate(-50%, 10%);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
     gap: 10px;
-    padding: $base-padding * 3 $base-padding * 6;
+    padding: $base-padding;
     border-radius: $base-border-radius;
   }
 
@@ -48,31 +48,5 @@
     margin-top: 20px;
     font-size: 1.3rem;
     padding: $base-padding $base-padding * 2;
-  }
-}
-
-.already_loggedin {
-  width: 100%;
-
-  &--wrapper {
-    max-width: 900px;
-    width: 95%;
-    height: 80vh;
-    margin: 0 auto;
-    padding: $base-padding * 6 $base-padding;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
-
-  &--title {
-    font-size: 5rem;
-    font-weight: 700;
-  }
-
-  &--message {
-    font-size: 2rem;
-    font-weight: 500;
   }
 }

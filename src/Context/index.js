@@ -7,7 +7,7 @@ export const DataProvider = (props) => {
   const [userId, setUserId] = useState();
   const [user, setUser] = useState();
   const [formInput, setformInput] = useState({});
-  const [errors, setErrors] = useState({ errors: [], errorName: [] });
+  const [errors, setErrors] = useState([]);
   const [userStatus, setUserStatus] = useState(false);
   const [signUpEmail, setSignUpEmail] = useState();
 
@@ -45,6 +45,9 @@ export const DataProvider = (props) => {
     const confirmPasswordLabel = document.querySelector(
       '.confirmPassword-label'
     );
+    const emailLabel =
+      document.querySelector('.confirmation_email--label') ||
+      document.querySelector('body');
 
     switch (target) {
       case 'name':
@@ -52,6 +55,7 @@ export const DataProvider = (props) => {
         break;
       case 'email':
         setformInput((prev) => ({ ...prev, email: value }));
+        emailLabel.classList.remove('errorAnimation');
         break;
       case 'password':
         setformInput((prev) => ({ ...prev, password: value }));

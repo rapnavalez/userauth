@@ -49,8 +49,8 @@ export default function Signup() {
         <form className='signup--form bg-light' onSubmit={signUpHandler}>
           <h2 className='signup--title text-dark'>Sign up</h2>
           <div className='signup--errors'>
-            {errors.errors
-              ? errors.errors.map((err, index) => (
+            {errors
+              ? errors.map((err, index) => (
                   <span className='signup--error error' key={index}>
                     {err}
                   </span>
