@@ -29,15 +29,14 @@ module.exports.login_handler = async (req, res) => {
         });
         res.status(200).send(user);
       } else {
-        console.log('email is not verified');
-        errors.push('Please confirm your email first');
+        errors.push('Your email is not verified! Please check your inbox.');
         throw Error();
       }
     } else {
+      errors.push('Email or Password is incorrect!');
       throw Error();
     }
   } catch (err) {
-    errors.push('Email or Password is incorrect');
     res.status(400).send(errors);
     errors = [];
   }
@@ -138,7 +137,12 @@ module.exports.verify_email = async (req, res) => {
     await Token.findOneAndRemove({ token });
     res.status(200).redirect('http://localhost:3000/login');
   } catch (error) {
-    console.log(error);
-    res.status(400).redirect('http://localhost:3000/tokenexpired');
+    res.status(400).redirect(`http://localhost:3000/tokenexpired/${token}`);
   }
+};
+
+module.exports.get_token = async (req, res) => {
+  const token = req.params.token;
+  const response = await Token.findOne({ token });
+  res.status(200).send(response);
 };

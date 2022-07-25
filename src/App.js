@@ -33,10 +33,7 @@ function App() {
             path='/verifyemail'
             element={!signUpEmail ? <NotFound /> : <VerifyEmail />}
           />
-          <Route
-            path='/tokenexpired'
-            element={signUpEmail ? <NotFound /> : <Expired />}
-          />
+          <Route path='/tokenexpired/:id' element={<Expired />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
