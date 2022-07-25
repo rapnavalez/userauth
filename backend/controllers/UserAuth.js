@@ -6,7 +6,7 @@ const nodemailer = require('nodemailer');
 
 const expiration = 1 * 24 * 60 * 60;
 const createToken = (id) => {
-  return jwt.sign({ id }, 'secret of the world', { expiresIn: expiration });
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: expiration });
 };
 
 let errors = [];
@@ -22,9 +22,6 @@ module.exports.login_handler = async (req, res) => {
         if (user.isVerified) {
           res.cookie('loginToken', token, {
             httpOnly: true,
-            maxAge: expiration * 1000,
-          });
-          res.cookie('loginCookie', user._id, {
             maxAge: expiration * 1000,
           });
           res.status(200).send(user);
@@ -74,8 +71,7 @@ const generateAndEmailToken = async (user) => {
           Thank for registering at loaners! Please click the link below to
           complete your registration.
         </p>
-        <br />
-        <a style="margin-bottom: 20px;background: #007bff;border: 1px solid #007bff; padding: 20px; border-radius: 250px; font-size: 21px;color:#FFF;font-weight: 700; text-decoration: none; font-family: 'Arial';" href='${process.env.SERVER_BASE_ADDRESS}/api/verifyemail/${verifyToken.token}'>Verify Email</a>
+        <a style="margin-bottom: 20px;background: #007bff;border: 1px solid #007bff; padding: 10px 20px; border-radius: 250px; font-size: 21px;color:#FFF;font-weight: 700; text-decoration: none; font-family: 'Arial';" href='${process.env.SERVER_BASE_ADDRESS}/api/verifyemail/${verifyToken.token}'>Verify Email</a>
       </div>
     `,
   };
@@ -114,37 +110,21 @@ module.exports.request_new_confirmation_email = async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
-    if (user) {
-      generateAndEmailToken(user);
-      res.status(200).send(user.email);
+    if (!user.isVerified) {
+      if (user) {
+        generateAndEmailToken(user);
+        res.status(200).send(user.email);
+      } else {
+        errors.push('That Email is not yet registered!');
+        throw Error();
+      }
     } else {
-      errors.push('Email is not yet registered!');
+      errors.push('Your email was already confirmed!');
       throw Error();
     }
   } catch (error) {
     res.status(400).send(errors);
     errors = [];
-  }
-};
-
-module.exports.logout_handler = (req, res) => {
-  res.cookie('loginToken', '', {
-    maxAge: 1,
-  });
-  res.cookie('loginCookie', '', {
-    maxAge: 1,
-  });
-  res.status(200).send('logout succesful');
-};
-
-module.exports.get_user = async (req, res) => {
-  const id = req.body;
-
-  try {
-    const { name, email } = await User.findById(id.id);
-    res.status(200).send({ name, email });
-  } catch (error) {
-    console.log(error);
   }
 };
 
@@ -166,8 +146,21 @@ module.exports.verify_email = async (req, res) => {
   }
 };
 
-module.exports.get_token = async (req, res) => {
-  const token = req.params.token;
-  const response = await Token.findOne({ token });
-  res.status(200).send(response);
+module.exports.logout_handler = (req, res) => {
+  res.cookie('loginToken', '', {
+    maxAge: 1,
+  });
+  res.status(200).send('logout succesful');
+};
+
+module.exports.get_user = async (req, res) => {
+  const token = req.cookies.loginToken;
+  if (!token) return res.sendStatus(403);
+  try {
+    const data = jwt.verify(token, process.env.JWT_SECRET);
+    const { name, email } = await User.findById(data.id);
+    res.status(200).send({ name, email });
+  } catch (error) {
+    console.log(error);
+  }
 };

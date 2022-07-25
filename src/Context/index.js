@@ -4,40 +4,28 @@ import axios from 'axios';
 export const DataContext = createContext();
 
 export const DataProvider = (props) => {
-  const [userId, setUserId] = useState();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [formInput, setformInput] = useState({});
   const [errors, setErrors] = useState([]);
   const [userStatus, setUserStatus] = useState(false);
   const [signUpEmail, setSignUpEmail] = useState();
 
-  const checkCookie = () => {
-    const cookies = document.cookie.split(';');
-    cookies.forEach((cookie) => {
-      if (!cookie.includes('loginCookie')) return;
-      setUserId(
-        cookie
-          .substring(cookie.indexOf('=') + 1)
-          .substring(7)
-          .slice(0, -3)
-      );
-    });
-    if (userId) {
-      axios
-        .post('api/user', {
-          id: userId,
-        })
-        .then((res) => {
-          setUser(res.data);
-          setUserStatus(true);
-        })
-        .catch((err) => console.log(err));
-    } else {
-      setUserStatus(false);
-    }
+  const fetchUser = async () => {
+    await axios
+      .get('api/user')
+      .then((res) => {
+        setUser(res.data);
+        setUserStatus(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        setUserStatus(true);
+      });
   };
 
-  useEffect(checkCookie, [userId]);
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   const getUserInput = (e) => {
     const target = e.target.name;
@@ -75,10 +63,9 @@ export const DataProvider = (props) => {
         FormInput: [formInput, setformInput],
         Errors: [errors, setErrors],
         UserStatus: [userStatus, setUserStatus],
-        UserId: [userId, setUserId],
         SignUpEmail: [signUpEmail, setSignUpEmail],
         getUserInput,
-        checkCookie,
+        fetchUser,
       }}
     >
       {props.children}

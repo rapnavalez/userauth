@@ -5,12 +5,10 @@ import axios from 'axios';
 
 export default function Header() {
   const navigate = useNavigate();
-  const { User, UserStatus, Errors, UserId, FormInput } =
-    useContext(DataContext);
+  const { User, UserStatus, Errors, FormInput } = useContext(DataContext);
   const user = User[0];
   const setErrors = Errors[1];
   const [userStatus, setUserStatus] = UserStatus;
-  const setUserId = UserId[1];
   const setFormInput = FormInput[1];
 
   const logoutHandler = async () => {
@@ -18,7 +16,6 @@ export default function Header() {
       .get('/api/logout')
       .then((res) => {
         setUserStatus(false);
-        setUserId('');
         navigate('/', { replace: true });
       })
       .catch((err) => console.log(err));

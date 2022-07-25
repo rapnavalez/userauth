@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export default function Login() {
   const navigate = useNavigate();
-  const { UserStatus, Errors, FormInput, getUserInput, checkCookie } =
+  const { UserStatus, Errors, FormInput, getUserInput, fetchUser } =
     useContext(DataContext);
   const [errors, setErrors] = Errors;
   const [formInput, setFormInput] = FormInput;
@@ -25,7 +25,7 @@ export default function Login() {
         setErrors([]);
         setUserStatus(true);
         setFormInput({});
-        checkCookie();
+        fetchUser();
         navigate('/', { replace: true });
       })
       .catch((err) => {

@@ -30,13 +30,6 @@
 
   &--input {
     width: 100%;
-    padding: $base-padding $base-padding * 2;
-    padding-left: $base-padding;
-    // border-radius: $base-border-radius;
-    border: none;
-    border-bottom: $base-border-thickness solid $secondary;
-    background-color: transparent;
-    font-size: 1.3rem;
 
     &:focus {
       outline: $info;

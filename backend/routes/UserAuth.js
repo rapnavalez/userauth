@@ -13,7 +13,7 @@ const {
 router.post(`${BASE}/login`, login_handler);
 router.post(`${BASE}/signup`, signup_handler);
 router.get(`${BASE}/logout`, logout_handler);
-router.post(`${BASE}/user`, get_user);
+router.get(`${BASE}/user`, get_user);
 router.get(`${BASE}/verifyemail/:token`, verify_email);
 router.post(`${BASE}/getnewtoken`, request_new_confirmation_email);
 
