@@ -9,7 +9,7 @@ export default function Login() {
     useContext(DataContext);
   const [errors, setErrors] = Errors;
   const [formInput, setFormInput] = FormInput;
-  const [userStatus, setUserStatus] = UserStatus;
+  const userStatus = UserStatus[0];
 
   const inputs = document.querySelectorAll('input');
   const labels = document.querySelectorAll('label');
@@ -22,10 +22,9 @@ export default function Login() {
         ...formInput,
       })
       .then((res) => {
-        setErrors([]);
-        setUserStatus(true);
-        setFormInput({});
         fetchUser();
+        setErrors([]);
+        setFormInput({});
         navigate('/', { replace: true });
       })
       .catch((err) => {

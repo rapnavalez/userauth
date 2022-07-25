@@ -25,6 +25,10 @@ Install dependencies
   npm install
 ```
 
+```bash
+  node -v v16.14.2
+```
+
 Start the server
 
 ```bash

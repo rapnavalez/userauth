@@ -5,7 +5,7 @@ export const DataContext = createContext();
 
 export const DataProvider = (props) => {
   const [user, setUser] = useState(null);
-  const [formInput, setformInput] = useState({});
+  const [formInput, setFormInput] = useState({});
   const [errors, setErrors] = useState([]);
   const [userStatus, setUserStatus] = useState(false);
   const [signUpEmail, setSignUpEmail] = useState();
@@ -19,6 +19,7 @@ export const DataProvider = (props) => {
       })
       .catch((err) => {
         setUserStatus(false);
+        setUser(null);
       });
   };
 
@@ -38,14 +39,14 @@ export const DataProvider = (props) => {
 
     switch (target) {
       case 'name':
-        setformInput((prev) => ({ ...prev, name: value }));
+        setFormInput((prev) => ({ ...prev, name: value }));
         break;
       case 'email':
-        setformInput((prev) => ({ ...prev, email: value }));
+        setFormInput((prev) => ({ ...prev, email: value }));
         emailLabel.classList.remove('errorAnimation');
         break;
       case 'password':
-        setformInput((prev) => ({ ...prev, password: value }));
+        setFormInput((prev) => ({ ...prev, password: value }));
         break;
       case 'confirmPassword':
         confirmPasswordLabel.classList.remove('errorAnimation');
@@ -59,7 +60,7 @@ export const DataProvider = (props) => {
     <DataContext.Provider
       value={{
         User: [user, setUser],
-        FormInput: [formInput, setformInput],
+        FormInput: [formInput, setFormInput],
         Errors: [errors, setErrors],
         UserStatus: [userStatus, setUserStatus],
         SignUpEmail: [signUpEmail, setSignUpEmail],
