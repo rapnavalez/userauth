@@ -8,6 +8,7 @@ import { DataContext } from './Context';
 import { useContext } from 'react';
 import VerifyEmail from './pages/VerifyEmail';
 import NotFound from './pages/404';
+import Expired from './pages/Expired';
 
 function App() {
   const { UserStatus, SignUpEmail } = useContext(DataContext);
@@ -32,6 +33,11 @@ function App() {
             path='/verifyemail'
             element={!signUpEmail ? <NotFound /> : <VerifyEmail />}
           />
+          <Route
+            path='/tokenexpired'
+            element={signUpEmail ? <NotFound /> : <Expired />}
+          />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>

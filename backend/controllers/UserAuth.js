@@ -66,15 +66,17 @@ module.exports.signup_handler = async (req, res) => {
       from: 'rapwebdev@gmail.com',
       to: user.email,
       subject: 'Please confirm your email',
-      html: `<div style="display: block;">
-      <h1 style="font-size: 48px;color:#6c757d;font-weight: 700; font-family: 'Arial';">Hello, <span style="color: #007bff; text-transform: capitalize">${user.name}</span>!</h1>
-      <p style="margin: 20px 0 25px; font-size: 24px;color:#6c757d;font-weight: 500; font-family: 'Arial';">
-        Thank for registering at loaners! Please click the link below to
-        complete your registration.
-      </p>
-      <br />
-      <a style="margin: 0 auto; background: #007bff;border: 1px solid #007bff; padding: 20px; border-radius: 250px; font-size: 21px;color:#FFF;font-weight: 700; text-decoration: none; font-family: 'Arial';" href='http://localhost:5000/api/verifyemail/${verifyToken.token}'>Verify Email</a>
-    </div>`,
+      html: `
+      <div style="display: block; margin: 20px 0; background-color:#f8f9fa; padding: 20px;">
+        <h1 style="color:#6c757d; font-size: 48px;font-weight: 700; font-family: 'Arial';">Hello, <span style="color: #007bff; text-transform: capitalize">${user.name}</span>!</h1>
+        <p style="margin: 20px 0 25px; font-size: 24px;color:#6c757d;font-weight: 500; font-family: 'Arial';">
+          Thank for registering at loaners! Please click the link below to
+          complete your registration.
+        </p>
+        <br />
+        <a style="margin-bottom: 20px;background: #007bff;border: 1px solid #007bff; padding: 20px; border-radius: 250px; font-size: 21px;color:#FFF;font-weight: 700; text-decoration: none; font-family: 'Arial';" href='${process.env.CLIENT_ADDRESS}/api/verifyemail/${verifyToken.token}'>Verify Email</a>
+      </div>
+    `,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -125,15 +127,18 @@ module.exports.get_user = async (req, res) => {
 module.exports.verify_email = async (req, res) => {
   const token = req.params.token;
   const doesExist = await Token.findOne({ token });
-  await User.findOneAndUpdate(doesExist.email, {
-    isVerified: true,
-  });
   try {
-    if (doesExist) {
-      await Token.findOneAndRemove({ token });
-      res.status(200).send('verified!');
-    }
+    if (!doesExist) throw Error();
+    console.log(doesExist.expireAt);
+    console.log(Date.now);
+    if (doesExist.expireAt <= Date.now) throw Error();
+    await User.findOneAndUpdate(doesExist.email, {
+      isVerified: true,
+    });
+    await Token.findOneAndRemove({ token });
+    res.status(200).redirect('http://localhost:3000/login');
   } catch (error) {
     console.log(error);
+    res.status(400).redirect('http://localhost:3000/tokenexpired');
   }
 };
