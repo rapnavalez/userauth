@@ -162,9 +162,6 @@ module.exports.get_user = async (req, res) => {
     const { name, email } = await User.findById(data.id);
     res.status(200).send({ name, email });
   } catch (error) {
-    res.cookie('loginToken', '', {
-      maxAge: 1,
-    });
     res.status(500).send(error);
   }
 };

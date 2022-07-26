@@ -36,14 +36,12 @@ export default function Header() {
               Loaners
             </Link>
           </h1>
-          {userStatus ? (
+          {userStatus && user !== null ? (
             <div className='header--links'>
               <h4 className='header--greetings text-dark'>
                 Hello,&nbsp;
                 <Link className='text-link-primary' to='/'>
-                  {user !== null
-                    ? user.name.slice(0, user.name.indexOf(' '))
-                    : ''}
+                  {user.name.slice(0, user.name.indexOf(' '))}
                 </Link>
               </h4>
               <button
@@ -57,14 +55,14 @@ export default function Header() {
             <div className='header--links'>
               <Link
                 onClick={clearErrors}
-                className='header--link text-link-dark'
+                className='header--link text-link-dark login-link'
                 to='/login'
               >
                 Login
               </Link>
               <Link
                 onClick={clearErrors}
-                className='header--link btn-primary'
+                className='header--link btn-primary signup-link'
                 to='/signup'
               >
                 Sign Up

@@ -9,6 +9,9 @@
   padding: $base-padding $base-padding * 2;
   background-color: $color;
   transition: $base-transition;
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 @each $key, $val in $colors {
