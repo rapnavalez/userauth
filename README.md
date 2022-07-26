@@ -59,6 +59,10 @@ Client side validation is present in checking if the user is submiting a valid e
 
 The user can login `http://localhost:3000/login`. The validation is done on server side checking if the email exist and the password is correct. If the user entered an incorrect credentials the server would respond with a vague error message `email or password is incorrect`. If the user entered an email that is yet to be verified, the user would be prompted to verify the email. Upon successful login, a cookie(http) would be created containing the jwt token. A `fetchUser` function would be triggered to fetch the user relative to the jwt token that was saved in cookie.
 
+##### Bug Fix
+
+There are times esp. when first time login, the login method is already done but the user isn't displayed yet. Added loading animation, and removed navigate during login method. Routes will take care of re-routing once the user info is ready.
+
 ### Logout
 
 The user can click the `logout` button. It will delete the cookie and set the `userStatus` to `false`
