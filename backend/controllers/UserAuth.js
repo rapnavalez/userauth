@@ -120,7 +120,12 @@ module.exports.signup_handler = async (req, res) => {
     res.status(200).send(user.email);
   } catch (error) {
     if (error.code === 11000) {
-      errors.push('Email already exist!');
+      const user = await User.findOne({ email: signUpDetails.email });
+      if (user.isVerified) {
+        errors.push('Email already exist!');
+      } else {
+        errors.push('Email was already registered but not verified!');
+      }
     } else if (error._message === 'user validation failed') {
       Object.values(error.errors).forEach(({ properties }) => {
         errors.push(properties.message);
@@ -168,7 +173,7 @@ module.exports.verify_email = async (req, res) => {
     res
       .status(200)
       .redirect(
-        `${process.env.CLIENT_BASE_ADDRESS}/success/?emailconfirmationsuccess`
+        `${process.env.CLIENT_BASE_ADDRESS}/login/?emailconfirmationsuccess`
       );
   } catch (error) {
     res

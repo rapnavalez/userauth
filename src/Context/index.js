@@ -12,7 +12,7 @@ export const DataProvider = (props) => {
 
   const fetchUser = async () => {
     await axios
-      .get('api/user')
+      .get('/api/user')
       .then((res) => {
         setUser(res.data);
         setUserStatus(true);

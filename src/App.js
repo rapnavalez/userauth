@@ -14,7 +14,6 @@ import CofirmationEmail from './pages/ConfirmationEmail';
 import PasswordReset from './pages/PasswordReset';
 import CreateNewPassword from './pages/PasswordReset/CreateNewPassword';
 import ForgotPasswordEmail from './pages/ForgotPasswordEmail';
-import SuccessMessage from './pages/SuccessMessage';
 
 function App() {
   const { UserStatus, Email } = useContext(DataContext);
@@ -74,7 +73,6 @@ function App() {
             element={<PasswordTokenExpired />}
           />
 
-          <Route path='/success' element={<SuccessMessage />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>

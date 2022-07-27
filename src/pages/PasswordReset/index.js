@@ -2,11 +2,12 @@ import { useContext } from 'react';
 import { DataContext } from '../../Context';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import ErrorMessages from '../../components/Error';
 
 export default function PasswordReset() {
   const navigate = useNavigate();
   const { getUserInput, Email, Errors, FormInput } = useContext(DataContext);
-  const [errors, setErrors] = Errors;
+  const setErrors = Errors[1];
   const setEmail = Email[1];
   const [formInput, setFormInput] = FormInput;
 
@@ -37,7 +38,6 @@ export default function PasswordReset() {
         navigate('/forgotpasswordemail', { replace: true });
       })
       .catch((err) => {
-        console.log(err.response.data);
         setErrors(err.response.data);
         inputs.forEach((input) => input.classList.add('inputError'));
         labels.forEach((label) => label.classList.add('inputError-label'));
@@ -55,18 +55,7 @@ export default function PasswordReset() {
           <h2 className='request_new_password--title text-success'>
             Reset your password
           </h2>
-          <div className='request_new_password---errors'>
-            {errors
-              ? errors.map((err, index) => (
-                  <span
-                    className='request_new_password---error error'
-                    key={index}
-                  >
-                    {err}
-                  </span>
-                ))
-              : ''}
-          </div>
+          <ErrorMessages />
           <label className='request_new_password--label email'>
             Please enter your email to continue.
           </label>

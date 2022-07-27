@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../Context';
+import ErrorMessages from '../../components/Error';
 
 export default function CreateNewPassword() {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ export default function CreateNewPassword() {
         setErrors([]);
         setFormInput({});
         setEmail(res.data);
-        navigate('/success/?passwordresetsuccess', { replace: true });
+        navigate('/login/?passwordresetsuccess', { replace: true });
       })
       .catch((err) => {
         navigate(`/passwordtokenexpired/${token}`, { replace: true });
@@ -66,18 +67,7 @@ export default function CreateNewPassword() {
           <h2 className='create_new_password--title text-dark'>
             Create a new Password
           </h2>
-          <div className='create_new_password--errors'>
-            {errors
-              ? errors.map((err, index) => (
-                  <span
-                    className='create_new_password--error error'
-                    key={index}
-                  >
-                    {err}
-                  </span>
-                ))
-              : ''}
-          </div>
+          <ErrorMessages />
           <label className='create_new_password--label password-label'>
             New Password
           </label>

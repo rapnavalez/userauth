@@ -2,11 +2,12 @@ import { useContext } from 'react';
 import { DataContext } from '../../Context';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import ErrorMessages from '../../components/Error';
 
 export default function CofirmationEmail() {
   const navigate = useNavigate();
   const { getUserInput, Errors, FormInput, Email } = useContext(DataContext);
-  const [errors, setErrors] = Errors;
+  const setErrors = Errors[1];
   const [formInput, setFormInput] = FormInput;
   const setEmail = Email[1];
 
@@ -38,7 +39,6 @@ export default function CofirmationEmail() {
       })
       .catch((err) => {
         setErrors(err.response.data);
-        console.log(err);
         inputs.forEach((input) => input.classList.add('inputError'));
         labels.forEach((label) => label.classList.add('inputError-label'));
         labels.forEach((label) => label.classList.add('errorAnimation'));
@@ -55,18 +55,7 @@ export default function CofirmationEmail() {
           <h2 className='confirmation_email--title text-success'>
             Request a new confirmation email
           </h2>
-          <div className='confirmation_email---errors'>
-            {errors
-              ? errors.map((err, index) => (
-                  <span
-                    className='confirmation_email---error error'
-                    key={index}
-                  >
-                    {err}
-                  </span>
-                ))
-              : ''}
-          </div>
+          <ErrorMessages />
           <label className='confirmation_email--label email'>
             Please enter your email to continue.
           </label>
