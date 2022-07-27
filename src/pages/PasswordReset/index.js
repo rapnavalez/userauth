@@ -45,6 +45,11 @@ export default function PasswordReset() {
       });
   };
 
+  const clear = () => {
+    setErrors([]);
+    setFormInput({});
+  };
+
   return (
     <section className='request_new_password'>
       <div className='container'>
@@ -55,7 +60,7 @@ export default function PasswordReset() {
           <h2 className='request_new_password--title text-success'>
             Reset your password
           </h2>
-          <ErrorMessages />
+          <ErrorMessages clear={clear} />
           <label className='request_new_password--label email'>
             Please enter your email to continue.
           </label>

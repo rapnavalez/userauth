@@ -4,6 +4,8 @@ import { DataContext } from '../../Context';
 import axios from 'axios';
 import SuccessMessage from '../../components/SuccessMessage';
 import ErrorMessages from '../../components/Error';
+import InputsAndLabels from '../../components/InputsAndLabels';
+import data from './data';
 
 export default function Login() {
   const { Errors, FormInput, getUserInput, fetchUser } =
@@ -56,23 +58,13 @@ export default function Login() {
           <SuccessMessage />
           <h2 className='login--title text-dark'>Login</h2>
           <ErrorMessages clear={clear} />
-
-          <label className='login--label'>Email</label>
-          <input
-            className='login--input'
-            type='email'
-            placeholder='email@email.com'
-            name='email'
-            onChange={getUserInput}
-          />
-          <label className='login--label'>Password</label>
-          <input
-            className='login--input'
-            type='password'
-            placeholder='&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;'
-            name='password'
-            onChange={getUserInput}
-          />
+          {data.map((item, index) => (
+            <InputsAndLabels
+              key={index}
+              {...item}
+              inputOnChangeHandler={getUserInput}
+            />
+          ))}
           <Link
             to='/passwordreset'
             className='text-link-secondary'

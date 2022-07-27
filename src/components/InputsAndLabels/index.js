@@ -12,9 +12,9 @@ export default function InputsAndLabels({
 }) {
   return (
     <>
-      <label className={`signup--label ${labelClassName}`}>{labelValue}</label>
+      <label className={labelClassName}>{labelValue}</label>
       <input
-        className={`signup--input ${inputClassName}`}
+        className={inputClassName}
         type={inputType}
         placeholder={inputPlaceholder}
         name={inputName}

@@ -3,10 +3,10 @@ export default function SuccessMessage() {
 
   switch (window.location.search) {
     case '?passwordresetsuccess':
-      message = 'Password reset successful!';
+      message = 'Password has been succesfully changed!!';
       break;
     case '?emailconfirmationsuccess':
-      message = 'Email has been confirmed!';
+      message = 'Email has been successfully confirmed!';
       break;
     default:
       message = false;

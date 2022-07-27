@@ -3,6 +3,8 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../Context';
 import ErrorMessages from '../../components/Error';
+import InputsAndLabels from '../../components/InputsAndLabels';
+import data from './data';
 
 export default function CreateNewPassword() {
   const navigate = useNavigate();
@@ -68,28 +70,13 @@ export default function CreateNewPassword() {
             Create a new Password
           </h2>
           <ErrorMessages />
-          <label className='create_new_password--label password-label'>
-            New Password
-          </label>
-          <input
-            className='create_new_password--input new_password'
-            type='password'
-            placeholder='&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;'
-            name='password'
-            id='password'
-            onChange={getUserInput}
-          />
-          <label className='create_new_password--label confirmPassword-label'>
-            Confirm New Password
-          </label>
-          <input
-            className='create_new_password--input confirm_new_password'
-            type='password'
-            placeholder='&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;'
-            name='confirmPassword'
-            id='confirmPassword'
-            onChange={getUserInput}
-          />
+          {data.map((item, index) => (
+            <InputsAndLabels
+              key={index}
+              {...item}
+              inputOnChangeHandler={getUserInput}
+            />
+          ))}
           <button
             className='create_new_password--submit btn-primary'
             type='submit'

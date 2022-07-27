@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../Context';
-import ErrorsMessages from '../../components/Error';
+import ErrorMessages from '../../components/Error';
 import InputsAndLabels from '../../components/InputsAndLabels';
 import data from './data';
 
@@ -55,7 +55,7 @@ export default function Signup() {
       <div className='container'>
         <form className='signup--form bg-light' onSubmit={signUpHandler}>
           <h2 className='signup--title text-dark'>Sign up</h2>
-          <ErrorsMessages clear={clear} />
+          <ErrorMessages clear={clear} />
           {data.map((item, index) => (
             <InputsAndLabels
               key={index}
