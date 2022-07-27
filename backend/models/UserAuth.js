@@ -32,7 +32,7 @@ const tokenSchema = new mongoose.Schema({
     ref: 'User',
   },
   token: { type: String, required: true },
-  expireAt: { type: Date, default: Date.now, index: { expires: 864000 } },
+  expireAt: { type: Date, default: Date.now, index: { expires: 86400 } },
 });
 
 userSchema.pre('save', function (next) {

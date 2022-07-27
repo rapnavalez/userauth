@@ -22,7 +22,7 @@ export default function Header() {
       .catch((err) => console.log(err));
   };
 
-  const clearErrors = () => {
+  const clear = () => {
     setErrors([]);
     setFormInput({});
   };
@@ -32,7 +32,7 @@ export default function Header() {
       <div className='container'>
         <div className='header--wrapper'>
           <h1 className='header--logo'>
-            <Link className='text-link-primary' to='/'>
+            <Link className='text-link-primary' to='/' onClick={clear}>
               Loaners
             </Link>
           </h1>
@@ -54,14 +54,14 @@ export default function Header() {
           ) : (
             <div className='header--links'>
               <Link
-                onClick={clearErrors}
+                onClick={clear}
                 className='header--link text-link-dark login-link'
                 to='/login'
               >
                 Login
               </Link>
               <Link
-                onClick={clearErrors}
+                onClick={clear}
                 className='header--link btn-primary signup-link'
                 to='/signup'
               >

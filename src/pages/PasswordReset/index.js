@@ -3,12 +3,12 @@ import { DataContext } from '../../Context';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-export default function CofirmationEmail() {
+export default function PasswordReset() {
   const navigate = useNavigate();
-  const { getUserInput, Errors, FormInput, Email } = useContext(DataContext);
+  const { getUserInput, Email, Errors, FormInput } = useContext(DataContext);
   const [errors, setErrors] = Errors;
-  const [formInput, setFormInput] = FormInput;
   const setEmail = Email[1];
+  const [formInput, setFormInput] = FormInput;
 
   const inputs = document.querySelectorAll('input');
   const labels = document.querySelectorAll('label');
@@ -27,18 +27,18 @@ export default function CofirmationEmail() {
       return;
     }
     await axios
-      .post('/api/getnewtoken', {
+      .post('/api/getpasswordresetlink', {
         ...formInput,
       })
       .then((res) => {
         setErrors([]);
         setFormInput({});
         setEmail(res.data);
-        navigate('/verifyemail', { replace: true });
+        navigate('/forgotpasswordemail', { replace: true });
       })
       .catch((err) => {
+        console.log(err.response.data);
         setErrors(err.response.data);
-        console.log(err);
         inputs.forEach((input) => input.classList.add('inputError'));
         labels.forEach((label) => label.classList.add('inputError-label'));
         labels.forEach((label) => label.classList.add('errorAnimation'));
@@ -46,20 +46,20 @@ export default function CofirmationEmail() {
   };
 
   return (
-    <section className='confirmation_email'>
+    <section className='request_new_password'>
       <div className='container'>
         <form
-          className='confirmation_email--form'
+          className='request_new_password--form'
           onSubmit={requestConfirmationEmailHandler}
         >
-          <h2 className='confirmation_email--title text-success'>
-            Request a new confirmation email
+          <h2 className='request_new_password--title text-success'>
+            Reset your password
           </h2>
-          <div className='confirmation_email---errors'>
+          <div className='request_new_password---errors'>
             {errors
               ? errors.map((err, index) => (
                   <span
-                    className='confirmation_email---error error'
+                    className='request_new_password---error error'
                     key={index}
                   >
                     {err}
@@ -67,11 +67,11 @@ export default function CofirmationEmail() {
                 ))
               : ''}
           </div>
-          <label className='confirmation_email--label email'>
+          <label className='request_new_password--label email'>
             Please enter your email to continue.
           </label>
           <input
-            className='confirmation_email--input email'
+            className='request_new_password--input email'
             type='email'
             placeholder='email@email.com'
             name='email'
@@ -83,7 +83,7 @@ export default function CofirmationEmail() {
             type='submit'
             name='submit'
           >
-            Get confirmation email
+            Get password reset link
           </button>
         </form>
       </div>

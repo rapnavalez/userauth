@@ -5,11 +5,10 @@ import { DataContext } from '../../Context';
 
 export default function Signup() {
   const navigate = useNavigate();
-  const { FormInput, Errors, getUserInput, SignUpEmail } =
-    useContext(DataContext);
+  const { FormInput, Errors, getUserInput, Email } = useContext(DataContext);
   const [formInput, setFormInput] = FormInput;
   const [errors, setErrors] = Errors;
-  const setSignUpEmail = SignUpEmail[1];
+  const setEmail = Email[1];
 
   const confirmPasswordLabel = document.querySelector('.confirmPassword-label');
   const confirmPassword = document.querySelector('#confirmPassword');
@@ -35,7 +34,7 @@ export default function Signup() {
       .then((res) => {
         setErrors([]);
         setFormInput({});
-        setSignUpEmail(res.data);
+        setEmail(res.data);
         navigate('/verifyemail', { replace: true });
       })
       .catch((err) => {

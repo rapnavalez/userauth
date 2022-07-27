@@ -16,6 +16,15 @@
   text-decoration: underline;
 }
 
+.text-response-primary {
+  color: #007bff;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0.75rem;
+  background-color: white;
+  border-radius: 5px;
+}
+
 .text-secondary {
   color: #6c757d;
 }
@@ -32,6 +41,15 @@
 
 .text-link-secondary:hover {
   text-decoration: underline;
+}
+
+.text-response-secondary {
+  color: #6c757d;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0.75rem;
+  background-color: #f3f4f5;
+  border-radius: 5px;
 }
 
 .text-success {
@@ -52,6 +70,15 @@
   text-decoration: underline;
 }
 
+.text-response-success {
+  color: #28a745;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0.75rem;
+  background-color: #d8f6df;
+  border-radius: 5px;
+}
+
 .text-danger {
   color: #dc3545;
 }
@@ -68,6 +95,15 @@
 
 .text-link-danger:hover {
   text-decoration: underline;
+}
+
+.text-response-danger {
+  color: #dc3545;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0.75rem;
+  background-color: white;
+  border-radius: 5px;
 }
 
 .text-warning {
@@ -88,6 +124,15 @@
   text-decoration: underline;
 }
 
+.text-response-warning {
+  color: #ffc107;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0.75rem;
+  background-color: white;
+  border-radius: 5px;
+}
+
 .text-info {
   color: #17a2b8;
 }
@@ -104,6 +149,15 @@
 
 .text-link-info:hover {
   text-decoration: underline;
+}
+
+.text-response-info {
+  color: #17a2b8;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0.75rem;
+  background-color: #d4f5fa;
+  border-radius: 5px;
 }
 
 .text-light {
@@ -124,6 +178,15 @@
   text-decoration: underline;
 }
 
+.text-response-light {
+  color: #f8f9fa;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0.75rem;
+  background-color: white;
+  border-radius: 5px;
+}
+
 .text-dark {
   color: #343a40;
 }
@@ -142,6 +205,15 @@
   text-decoration: underline;
 }
 
+.text-response-dark {
+  color: #343a40;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0.75rem;
+  background-color: #b2bac1;
+  border-radius: 5px;
+}
+
 .text-white {
   color: #ffffff;
 }
@@ -158,6 +230,15 @@
 
 .text-link-white:hover {
   text-decoration: underline;
+}
+
+.text-response-white {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0.75rem;
+  background-color: white;
+  border-radius: 5px;
 }
 
 * {
@@ -1100,6 +1181,157 @@ input:focus {
   color: #17a2b8;
 }
 
+.request_new_password {
+  width: 100%;
+}
+
+.request_new_password--title {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.request_new_password--form {
+  max-width: 900px;
+  width: 95%;
+  position: absolute;
+  left: 50%;
+  top: 0%;
+  -webkit-transform: translate(-50%, 10%);
+          transform: translate(-50%, 10%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 10px;
+  padding: 0.75rem;
+  border-radius: 5px;
+}
+
+.request_new_password--label {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.request_new_password--input {
+  width: 100%;
+}
+
+.request_new_password--input:focus {
+  outline: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.request_new_password--submit {
+  margin-top: 20px;
+  font-size: 1.3rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.create_new_password {
+  width: 100%;
+}
+
+.create_new_password--title {
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+.create_new_password--form {
+  max-width: 500px;
+  width: 95%;
+  position: absolute;
+  left: 50%;
+  top: 0%;
+  -webkit-transform: translate(-50%, 10%);
+          transform: translate(-50%, 10%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 10px;
+  padding: 2.25rem 4.5rem;
+  border-radius: 5px;
+}
+
+.create_new_password--label {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.create_new_password--input {
+  width: 100%;
+}
+
+.create_new_password--input:focus {
+  outline: #17a2b8;
+  border-color: #17a2b8;
+}
+
+.create_new_password--submit {
+  margin-top: 20px;
+  font-size: 1.3rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.forgot_password_email {
+  width: 100%;
+}
+
+.forgot_password_email--wrapper {
+  max-width: 900px;
+  width: 95%;
+  height: 80vh;
+  margin: 0 auto;
+  padding: 4.5rem 0.75rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.forgot_password_email--title {
+  font-size: 5rem;
+  font-weight: 700;
+}
+
+.forgot_password_email--message {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.forgot_password_email--message span {
+  color: #17a2b8;
+}
+
 .not_found {
   width: 100%;
 }
@@ -1166,6 +1398,41 @@ input:focus {
 }
 
 .expired--message, .expired--link {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.success {
+  width: 100%;
+}
+
+.success--wrapper {
+  max-width: 900px;
+  width: 95%;
+  height: 80vh;
+  margin: 0 auto;
+  padding: 4.5rem 0.75rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.success--title {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.success--message, .success--link {
   font-size: 2rem;
   font-weight: 500;
 }

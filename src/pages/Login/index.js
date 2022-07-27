@@ -41,7 +41,7 @@ export default function Login() {
       });
   };
 
-  const clearErrors = () => {
+  const clear = () => {
     setErrors([]);
     setFormInput({});
   };
@@ -64,7 +64,7 @@ export default function Login() {
             {errors[0] ===
             'Your email is not verified! Please check your inbox.' ? (
               <Link
-                onClick={clearErrors}
+                onClick={clear}
                 to='/confirmationemail'
                 className='text-link-success success'
               >
@@ -90,6 +90,9 @@ export default function Login() {
             name='password'
             onChange={getUserInput}
           />
+          <Link to='/passwordreset' className='text-link-secondary'>
+            Forgot password?
+          </Link>
           <button
             className='login--submit btn-primary'
             type='submit'

@@ -66,3 +66,7 @@ There are times esp. when first time login, the login method is already done but
 ### Logout
 
 The user can click the `logout` button. It will delete the cookie and set the `userStatus` to `false`
+
+### Password Reset
+
+The user can click the password reset link on the login page to request for a password reset link. After entering a valid email, an email will be sent to the user containing the link for the password reset. After clicking the link, the user can enter a new password. If the change was a success, the user will be redirected to the login page.

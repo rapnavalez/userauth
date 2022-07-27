@@ -8,13 +8,18 @@ import { DataContext } from './Context';
 import { useContext } from 'react';
 import VerifyEmail from './pages/VerifyEmail';
 import NotFound from './pages/404';
-import Expired from './pages/Expired';
+import EmailTokenExpired from './pages/Expired/EmailTokenExpired';
+import PasswordTokenExpired from './pages/Expired/PasswordTokenExpired';
 import CofirmationEmail from './pages/ConfirmationEmail';
+import PasswordReset from './pages/PasswordReset';
+import CreateNewPassword from './pages/PasswordReset/CreateNewPassword';
+import ForgotPasswordEmail from './pages/ForgotPasswordEmail';
+import SuccessMessage from './pages/SuccessMessage';
 
 function App() {
-  const { UserStatus, SignUpEmail } = useContext(DataContext);
+  const { UserStatus, Email } = useContext(DataContext);
   const userStatus = UserStatus[0];
-  const signUpEmail = SignUpEmail[0];
+  const email = Email[0];
 
   return (
     <div className='App'>
@@ -22,20 +27,54 @@ function App() {
         <Header />
         <Routes>
           <Route path='/' element={<Home />} />
+
           <Route path='/login' element={userStatus ? <Home /> : <Login />} />
+
           <Route
             path='/signup'
             element={userStatus ? <NotFound /> : <Signup />}
           />
+
           <Route
             path='/verifyemail'
-            element={!signUpEmail ? <NotFound /> : <VerifyEmail />}
+            element={email ? <VerifyEmail /> : <NotFound />}
           />
+
           <Route
             path='/confirmationemail'
             element={userStatus ? <NotFound /> : <CofirmationEmail />}
           />
-          <Route path='/tokenexpired/:id' element={<Expired />} />
+
+          <Route
+            path='/emailtokenexpired/:token'
+            element={<EmailTokenExpired />}
+          />
+
+          <Route
+            path='/forgotpasswordemail'
+            element={email ? <ForgotPasswordEmail /> : <NotFound />}
+          />
+
+          <Route
+            path='/passwordreset'
+            element={userStatus ? <Home /> : <PasswordReset />}
+          />
+          <Route
+            path='/createnewpassword/:token'
+            element={<CreateNewPassword />}
+          />
+
+          <Route
+            path='/createnewpassword/:token'
+            element={<CreateNewPassword />}
+          />
+
+          <Route
+            path='/passwordtokenexpired/:id'
+            element={<PasswordTokenExpired />}
+          />
+
+          <Route path='/success' element={<SuccessMessage />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>

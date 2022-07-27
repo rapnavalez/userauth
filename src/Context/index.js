@@ -8,7 +8,7 @@ export const DataProvider = (props) => {
   const [formInput, setFormInput] = useState({});
   const [errors, setErrors] = useState([]);
   const [userStatus, setUserStatus] = useState(false);
-  const [signUpEmail, setSignUpEmail] = useState();
+  const [email, setEmail] = useState();
 
   const fetchUser = async () => {
     await axios
@@ -63,7 +63,7 @@ export const DataProvider = (props) => {
         FormInput: [formInput, setFormInput],
         Errors: [errors, setErrors],
         UserStatus: [userStatus, setUserStatus],
-        SignUpEmail: [signUpEmail, setSignUpEmail],
+        Email: [email, setEmail],
         getUserInput,
         fetchUser,
       }}
